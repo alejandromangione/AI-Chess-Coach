@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chess Coach</title>
+
+    <!-- Chessboard.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Settings Modal -->
+    <dialog id="settingsModal">
+        <div class="modal-content">
+            <h3>LLM Configuration</h3>
+            <div class="form-group">
+                <label for="llmProvider">AI Provider:</label>
+                <select id="llmProvider">
+                    <option value="ollama">Ollama (Local)</option>
+                    <option value="openai">OpenAI</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modelName">Model Name:</label>
+                <input type="text" id="modelName">
+            </div>
+
+            <div class="form-group" id="ollamaSettings">
+                <label for="ollamaUrl">Ollama Endpoint URL:</label>
+                <input type="text" id="ollamaUrl" placeholder="http://localhost:11434/api/generate">
+            </div>
+
+            <div class="form-group" id="openaiSettings" style="display: none;">
+                <label for="openApiKey">OpenAI API Key:</label>
+                <input type="password" id="openApiKey" placeholder="sk-...">
+            </div>
+
+            <!-- Add this inside the modal-content, above the modal-actions -->
+            <div class="form-group" style="margin-top: 10px;">
+                <label for="engineDifficulty">Engine Difficulty: <span id="difficultyLabel">10</span></label>
+                <input type="range" id="engineDifficulty" min="0" max="20" value="10">
+                <small style="color: #888; margin-top: 5px;">0 = Beginner, 20 = Grandmaster</small>
+            </div>
+
+            <div class="modal-actions">
+              <span id="testStatus" style="margin-right: auto; align-self: center; font-size: 14px;"></span>
+              <button id="testConnectionBtn" class="secondary-btn">Test</button>
+              <button id="closeSettingsBtn" class="secondary-btn">Cancel</button>
+              <button id="saveSettingsBtn" class="primary-btn">Save</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Game Over Modal -->
+    <dialog id="gameOverModal">
+        <div class="modal-content" style="text-align: center;">
+            <h3 id="gameOverTitle">Game Over</h3>
+            <p id="gameOverMessage" style="margin-bottom: 20px; color: #babaca; font-size: 16px;"></p>
+            <div class="modal-actions" style="justify-content: center;">
+                <button id="restartBtn" class="primary-btn">Restart Game</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div class="container">
+        <!-- Left Column: The Board -->
+        <div class="board-column">
+            <div id="board"></div>
+        </div>
+
+        <!-- Right Column: The Sidebar -->
+        <div class="sidebar-column">
+                <div class="header">
+                <h2>AI Chess Coach</h2>
+                <div>
+                    <button id="undoBtn" title="Undo Move">↶</button>
+                    <button id="settingsBtn" title="Settings">⚙️</button>
+                </div>
+            </div>
+
+            <div class="move-history">
+                <h3>Move History</h3>
+                <div id="pgn-display">No moves yet.</div>
+            </div>
+
+            <div class="ai-panel">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <h3>AI Coach</h3>
+                  <button id="askCoachBtn" class="primary-btn" style="padding: 5px 10px; font-size: 12px;">Get Hint</button>
+              </div>
+              <div id="ai-chat">
+                  <p style="color: #888;">Welcome! Make a move, then ask for a hint.</p>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- jQuery, Chessboard.js, and Chess.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+    <!-- Custom App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
