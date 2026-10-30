@@ -7,6 +7,12 @@ function updateStatus() {
     document.getElementById('pgn-display').innerText = pgn || 'No moves yet.';
 }
 
+// Panel Toggle Logic
+function togglePanel(panelId) {
+    const panel = document.getElementById(panelId);
+    panel.classList.toggle('collapsed');
+}
+
 // Ensure the piece belongs to the player whose turn it is
 function onDragStart(source, piece, position, orientation) {
     if (game.game_over()) return false;

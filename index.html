@@ -81,20 +81,30 @@
                 </div>
             </div>
 
-            <div class="move-history">
-                <h3>Move History</h3>
-                <div id="pgn-display">No moves yet.</div>
+            <div class="move-history" id="historyPanel">
+                <div class="panel-header" onclick="togglePanel('historyPanel')">
+                    <h3>Move History</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="panel-content">
+                    <div id="pgn-display" style="margin-top: 15px;">No moves yet.</div>
+                </div>
             </div>
 
-            <div class="ai-panel">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <h3>AI Coach</h3>
-                  <button id="askCoachBtn" class="primary-btn" style="padding: 5px 10px; font-size: 12px;">Get Hint</button>
-              </div>
-              <div id="ai-chat">
-                  <p style="color: #888;">Welcome! Make a move, then ask for a hint.</p>
-              </div>
-          </div>
+            <div class="ai-panel" id="aiPanel">
+                <div class="panel-header" onclick="togglePanel('aiPanel')">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <h3>AI Coach</h3>
+                        <button id="askCoachBtn" class="primary-btn" style="padding: 5px 10px; font-size: 12px;" onclick="event.stopPropagation();">Get Hint</button>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="panel-content">
+                    <div id="ai-chat" style="margin-top: 15px;">
+                        <p style="color: #888;">Welcome! Make a move, then ask for a hint.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
